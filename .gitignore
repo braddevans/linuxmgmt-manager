@@ -6,3 +6,6 @@ gen
 
 # data folder
 data/main.log
+
+# venv folder
+venv
