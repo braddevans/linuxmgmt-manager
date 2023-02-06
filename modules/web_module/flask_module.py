@@ -37,6 +37,14 @@ def get_agent_by_hostname(hostname):
     return None
 
 
+def update_agent_processor(agent_hostname, update_obj):
+    agent = get_agent_by_hostname(agent_hostname)
+    if agent is not None:
+        return True
+    else:
+        return False
+
+
 async def flaskWorker(logger):
     prefix = "flask_sub_process"
     logger.log_message(prefix, "Flask server started at port: 32451")
@@ -57,10 +65,21 @@ async def flaskWorker(logger):
                                                                                get_agent_by_hostname(js_obj["agent_hostname"])["uuid"]))
             return {"created": True, "uuid": get_agent_by_hostname(js_obj["agent_hostname"])["uuid"]}
 
+
+    # example update POST request to update agent ip
+    # {
+    #     "uuid":"18e0f791-336f-4943-8031-6d61dfc02e45",
+    #     "agent_ip": "192.168.2.4",
+    #     "agent_hostname": "bh-ss-deb-smol"
+    # }
+
     @app.route("/api/agent/update", methods=['POST'])
     def update_agent():
         data = request.data.decode('utf-8')
+        js_obj = json.loads(data)
+        ret = update_agent_processor(js_obj["agent_hostname"], js_obj)
+        print(ret)
         logger.log_message(prefix, data)
-        return "<p>Hello, World!</p>"
+        return {"updated": False}
 
     app.run(host='0.0.0.0', port=32451, debug=False)

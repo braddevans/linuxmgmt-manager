@@ -22,3 +22,10 @@ class AgentManager:
             json.dump(self.agents, f, indent=4)
         self.refresh_agents()
         pass
+
+    def update_agent(self, obj):
+        self.agents.update(obj)
+        with open(self.agents_file, "w") as f:
+            json.dump(self.agents, f, indent=4)
+        self.refresh_agents()
+        pass
