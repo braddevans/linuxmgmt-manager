@@ -6,6 +6,9 @@ gen
 
 # data folder
 data/main.log
+data/agents.json
+data/config.json
+
 
 # venv folder
 venv
