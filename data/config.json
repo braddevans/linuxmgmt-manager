@@ -1,0 +1,14 @@
+{
+  "logs": {
+    "enabled": true,
+    "directory": "./data/"
+  },
+  "modules": {
+    "apt_module": {
+      "enabled": true,
+      "dir": "pkg_utils",
+      "term": "/bin/bash",
+      "check_time": "30m"
+    }
+  }
+}
